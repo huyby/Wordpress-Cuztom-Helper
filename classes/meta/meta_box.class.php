@@ -15,6 +15,8 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 	var $priority;
 	var $post_types;
 
+    protected $_conditions = array();
+
 	/**
 	 * Constructs the meta box
 	 *
@@ -40,6 +42,12 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 			$this->context		= $context;
 			$this->priority		= $priority;
 
+            // check for meta based conditions
+            if (isset($data['conditions']) && is_array($data['conditions'])) {
+                $this->_conditions = $data['conditions'];
+                unset($data['conditions']);
+            }
+
 			// Chack if the class, function or method exist, otherwise use cuztom callback
 			if( Cuztom::is_wp_callback( $data ) )
 			{
@@ -64,7 +72,7 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 			}
 
 			// Add the meta box
-			add_action( 'add_meta_boxes_' . $post_type, array( &$this, 'add_meta_box' ) );
+			add_action( $post_type === $this->post_types[0] ? 'add_meta_boxes_' . $post_type : 'add_meta_boxes', array( &$this, 'add_meta_box' ) );
 		}
 	}
 
@@ -77,6 +85,10 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 	 */
 	function add_meta_box()
 	{
+        // if conditions are not met, abort
+        if (!$this->_check_conditions()) {
+            return;
+        }
 		foreach( $this->post_types as $post_type )
 		{
 			add_meta_box(
@@ -89,6 +101,29 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 			);
 		}
 	}
+
+    /**
+     * Check if conditions are fulfilled based on the meta of the current $post object
+     * @return boolean
+     */
+    protected function _check_conditions()
+    {
+        if (count($this->_conditions) === 0) {
+            return true;
+        }
+        global $post;
+        $hasCondition = 0;
+
+        foreach ($this->_conditions as $metaName => $values) {
+            $metaValue = get_post_meta($post->ID, $metaName, true);
+
+            if (in_array($metaValue, $values)) {
+                $hasCondition++;
+            }
+        }
+
+        return count($this->_conditions) === $hasCondition;
+    }
 
 	/**
 	 * Hooks into the save hook for the newly registered Post Type
