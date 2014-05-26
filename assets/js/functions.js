@@ -82,7 +82,6 @@ jQuery( function( $ ) {
                     wp.media.frames.file_frame.open();
                     return;
                 }
-                console.log('extend');
                 //Extend the wp.media object
                 _cuztom_uploader = wp.media.frames.file_frame = wp.media({
                     multiple: false,

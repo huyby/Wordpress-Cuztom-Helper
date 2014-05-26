@@ -32,13 +32,13 @@
 .cuztom .cuztom-sortable-item fieldset{ display: inline-block; vertical-align: middle; border: 1px solid #ccc; padding: 10px; border-radius: 2px; -webkit-border-radius: 2px; -moz-border-radius: 2px; width: 90%; }
 
 /* Input */
-.cuztom textarea, 
-.cuztom input[type="text"]{ width: 80%; display: inline-block; vertical-align: middle; }
+.cuztom textarea,
+.cuztom input[type="text"]{ /*width: 80%;*/ display: inline-block; vertical-align: middle; }
 .cuztom textarea{ height: 100px; }
 .cuztom select{ min-width: 160px; }
 .cuztom .cuztom-preview{ width: 100%; display: block; margin-top: 8px; }
 .cuztom .cuztom-preview img{ max-width: 100%; height: auto; }
-.cuztom .mceContentBody, 
+.cuztom .mceContentBody,
 .cuztom .mceIframeContainer{ background: #fff !important; }
 .cuztom .mceStatusbar{ width: 100% !important; padding-left: 0 !important; text-indent: 10px; }
 .cuztom.form-field input[type="button"]{ width: auto; }
@@ -71,3 +71,12 @@
 #side-sortables .cuztom-table .cuztom-colorpicker{ width: 80%; }
 #side-sortables .cuztom-table .cuztom-ajax-save{ clear: both; }
 #side-sortables .cuztom-table .cuztom-remove-media{ margin-left: 0; }
+
+/* WP admin extended classes */
+input.medium-text {
+   width: 15em;
+}
+
+.cuztom input.small-text {
+    padding: 3px 5px;
+}
