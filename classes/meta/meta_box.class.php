@@ -43,7 +43,7 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 			$this->context		= $context;
 			$this->priority		= $priority;
 
-            // check for meta based conditions
+            // check for conditions
             if (is_array($options) && isset($options['conditions']) && is_array($options['conditions'])) {
                 $this->_conditions = $options['conditions'];
             }
@@ -104,6 +104,7 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 
     /**
      * Check if conditions are fulfilled based on the meta of the current $post object
+     * or current user role
      * @return boolean
      */
     protected function _check_conditions()
@@ -115,10 +116,21 @@ class Cuztom_Meta_Box extends Cuztom_Meta
         $hasCondition = 0;
 
         foreach ($this->_conditions as $metaName => $values) {
-            $metaValue = get_post_meta($post->ID, $metaName, true);
+            if ($metaName === 'role') {
+                $user = wp_get_current_user();
 
-            if (in_array($metaValue, $values)) {
-                $hasCondition++;
+                foreach ((array) $user->roles as $role) {
+                    if (in_array($role, $values)) {
+                        $hasCondition++;
+                        break;
+                    }
+                }
+            } else {
+                $metaValue = get_post_meta($post->ID, $metaName, true);
+
+                if (in_array($metaValue, $values)) {
+                    $hasCondition++;
+                }
             }
         }
 
