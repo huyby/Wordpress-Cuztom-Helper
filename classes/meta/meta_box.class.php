@@ -26,12 +26,13 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 	 * @param 	string 			$post_type_name
 	 * @param 	string 			$context
 	 * @param 	string 			$priority
+     * @param   array|null      $options
 	 *
 	 * @author 	Gijs Jorissen
 	 * @since 	0.2
 	 *
 	 */
-	function __construct( $id, $title, $post_type, $data = array(), $context = 'normal', $priority = 'default' )
+	function __construct( $id, $title, $post_type, $data = array(), $context = 'normal', $priority = 'default', $options = null )
 	{
 		if( ! empty( $title ) )
 		{
@@ -43,9 +44,8 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 			$this->priority		= $priority;
 
             // check for meta based conditions
-            if (isset($data['conditions']) && is_array($data['conditions'])) {
-                $this->_conditions = $data['conditions'];
-                unset($data['conditions']);
+            if (is_array($options) && isset($options['conditions']) && is_array($options['conditions'])) {
+                $this->_conditions = $options['conditions'];
             }
 
 			// Chack if the class, function or method exist, otherwise use cuztom callback

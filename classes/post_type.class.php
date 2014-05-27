@@ -18,7 +18,7 @@ class Cuztom_Post_Type
 	var $labels;
 	var $add_features;
 	var $remove_features;
-	
+
 	/**
 	 * Construct a new Cuztom Post Type
 	 *
@@ -59,10 +59,10 @@ class Cuztom_Post_Type
 			}
 		}
 	}
-	
+
 	/**
 	 * Register the Post Type
-	 * 
+	 *
 	 * @author 	Gijs Jorissen
 	 * @since 	0.1
 	 *
@@ -91,7 +91,7 @@ class Cuztom_Post_Type
 		);
 
 		// Post type arguments
-		$args = array_merge( 
+		$args = array_merge(
 			array(
 				'label' 				=> sprintf( __( '%s', 'cuztom' ), $this->plural ),
 				'labels' 				=> $labels,
@@ -105,7 +105,7 @@ class Cuztom_Post_Type
 		// Register the post type
 		register_post_type( $this->name, $args );
 	}
-	
+
 	/**
 	 * Add a taxonomy to the Post Type
 	 *
@@ -122,11 +122,11 @@ class Cuztom_Post_Type
 	{
 		// Call Cuztom_Taxonomy with this post type name as second parameter
 		$taxonomy = new Cuztom_Taxonomy( $name, $this->name, $args, $labels );
-		
+
 		// For method chaining
 		return $this;
 	}
-	
+
 	/**
 	 * Add post meta box to the Post Type
 	 *
@@ -141,11 +141,11 @@ class Cuztom_Post_Type
 	 * @since 	0.1
 	 *
 	 */
-	function add_meta_box( $id, $title, $fields = array(), $context = 'normal', $priority = 'default' )
+	function add_meta_box( $id, $title, $fields = array(), $context = 'normal', $priority = 'default', $options = null )
 	{
 		// Call Cuztom_Meta_Box with this post type name as second parameter
-		$meta_box = new Cuztom_Meta_Box( $id, $title, $this->name, $fields, $context, $priority );
-		
+		$meta_box = new Cuztom_Meta_Box( $id, $title, $this->name, $fields, $context, $priority, $options );
+
 		// For method chaining
 		return $this;
 	}
@@ -158,26 +158,26 @@ class Cuztom_Post_Type
 	 *
 	 * @author 	Abhinav Sood
 	 * @since 	1.4.3
-	 * 
+	 *
 	 */
 	function add_post_type_support( $feature )
 	{
 		$this->add_features	= (array) $feature;
-		
+
 		add_action( 'init', array( &$this, '_add_post_type_support' ) );
-		
+
 		// For method chaining
 		return $this;
 	}
 
 	/**
 	 * Register support of certain features for a post type.
-	 * 
+	 *
 	 * @author 	Abhinav Sood
 	 * @since 	1.4.3
-	 * 
+	 *
 	 */
-	function _add_post_type_support() 
+	function _add_post_type_support()
 	{
 		add_post_type_support( $this->name, $this->add_features );
 	}
@@ -187,27 +187,27 @@ class Cuztom_Post_Type
 	 *
 	 * @param 	string|array 	$feature 			The feature being removed, can be an array of feature strings or a single string
 	 * @return 	object 			Cuztom_Post_Type
-	 * 
+	 *
 	 * @author 	Abhinav Sood
 	 * @since 	1.4.3
-	 * 
+	 *
 	 */
 	function remove_post_type_support( $feature )
 	{
 		$this->remove_features	= (array) $feature;
-		
+
 		add_action( 'init', array( &$this, '_remove_post_type_support' ) );
-		
+
 		// For method chaining
 		return $this;
 	}
 
 	/**
 	 * Remove support of certain features for a post type.
-	 * 
+	 *
 	 * @author 	Abhinav Sood
 	 * @since 	1.4.3
-	 * 
+	 *
 	 */
 	function _remove_post_type_support()
 	{
@@ -216,16 +216,16 @@ class Cuztom_Post_Type
 			remove_post_type_support( $this->name, $feature );
 		}
 	}
-	
+
 	/**
 	 * Check if post type supports a certain feature
 	 *
 	 * @param 	string  		$feature    		The feature to check support for
-	 * @return  boolean 
-	 * 
+	 * @return  boolean
+	 *
 	 * @author 	Abhinav Sood
 	 * @since 	1.5.3
-	 * 
+	 *
 	 */
 	function post_type_supports( $feature )
 	{
