@@ -134,7 +134,7 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 	function save_term( $term_id )
 	{
 		// Loop through each meta box
-		if( ! empty( $this->data ) && isset( $_POST['cuztom'] ) )
+		if( ! empty( $this->data ) && isset( $_POST['cuztom'] )  && isset($_POST['taxonomy']))
 		{
 			$data 		= array();
 			$values 	= isset( $_POST['cuztom'] ) ? $_POST['cuztom'] : '';
