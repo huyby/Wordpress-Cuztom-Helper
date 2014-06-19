@@ -4,20 +4,20 @@ jQuery( function( $ ) {
 
     var add_events;
 
-    (add_events = function( object )
+    (add_events = function( $object )
     {
         // Datepicker
-        $('.js-cuztom-datepicker', object).map(function(){
+        $('.js-cuztom-datepicker', $object).map(function(){
             return $(this).datepicker({ dateFormat: $(this).data('date-format') });
         });
 
         // Timepicker
-        $('.js-cuztom-timepicker', object).map(function(){
+        $('.js-cuztom-timepicker', $object).map(function(){
             return $(this).timepicker({ timeFormat: $(this).data('time-format') });
         });
 
         // Datetime
-        $('.js-cuztom-datetimepicker', object).map(function(){
+        $('.js-cuztom-datetimepicker', $object).map(function(){
             return $(this).datetimepicker({
                 timeFormat: $(this).data('time-format'),
                 dateFormat: $(this).data('date-format')
@@ -25,26 +25,26 @@ jQuery( function( $ ) {
         });
 
         // Colorpicker
-        $('.js-cuztom-colorpicker', object).wpColorPicker();
+        $('.js-cuztom-colorpicker', $object).wpColorPicker();
 
         // Tabs
-        $('.js-cuztom-tabs', object).tabs();
+        $('.js-cuztom-tabs', $object).tabs();
 
         // Slider
-        $( '.js-slider', object ).slider();
+        $( '.js-slider', $object ).slider();
 
         // Accordion
-        $('.js-cuztom-accordion', object).accordion();
+        $('.js-cuztom-accordion', $object).accordion();
 
-        // Sortable
-        $('.js-cuztom-sortable', object).each(function() {
-            $(this).sortable({
-                items: $(this).find('> li'),
-                handle: $(this).find('> li > .cuztom-handle-sortable')
-            });
-        });
 
     })( $('.js-cuztom-sortable-item') );
+
+    // Sortable
+    $('.js-cuztom-sortable').sortable({
+        items: '> li',
+        handle: '.cuztom-handle-sortable',
+        axis: 'y'
+    });
 
     // Remove current attached image
     $('body').on( 'click', '.js-cuztom-remove-media', function()

@@ -20,12 +20,12 @@ class Cuztom_Meta
 
 	/**
 	 * Construct for all meta types, creates title (and description)
-	 * 
+	 *
 	 * @param 	string|array 	$title
 	 *
 	 * @author  Gijs Jorissen
 	 * @since 	1.6.4
-	 * 
+	 *
 	 */
 	function __construct( $title )
 	{
@@ -50,7 +50,7 @@ class Cuztom_Meta
 	 * @author 	Gijs Jorissen
 	 * @since 	0.2
 	 *
-	 */	
+	 */
 	function callback( $object, $data = array() )
 	{
 		// Nonce field for validation
@@ -66,7 +66,7 @@ class Cuztom_Meta
 			echo '<div class="cuztom" data-object-id="' . ( $meta_type == 'post' ? get_the_ID() : $object->ID ) . '" data-meta-type="' . $meta_type . '">';
 
 				if( ! empty( $this->description ) ) echo '<p class="cuztom-box-description">' . $this->description . '</p>';
-			
+
 				if( ( $data instanceof Cuztom_Tabs ) || ( $data instanceof Cuztom_Accordion ) || ( $data instanceof Cuztom_Bundle ) )
 				{
 					$data->output( $object );
@@ -83,11 +83,13 @@ class Cuztom_Meta
 							if( ! $field instanceof Cuztom_Field_Hidden )
 							{
 								echo '<tr>';
-									echo '<th class="cuztom-th">';
-										echo '<label for="' . $id_name . '" class="cuztom_label">' . $field->label . '</label>';
-										echo $field->required ? ' <span class="cuztom-required">*</span>' : '';
-										echo '<div class="cuztom-description description">' . $field->description . '</div>';
-									echo '</th>';
+                                    if ($field->label || $field->description) {
+    									echo '<th class="cuztom-th">';
+    										echo '<label for="' . $id_name . '" class="cuztom_label">' . $field->label . '</label>';
+    										echo $field->required ? ' <span class="cuztom-required">*</span>' : '';
+    										echo '<div class="cuztom-description description">' . $field->description . '</div>';
+    									echo '</th>';
+                                    }
 									echo '<td class="cuztom-td">';
 
 										if( $field->repeatable && $field->_supports_repeatable )
@@ -115,7 +117,7 @@ class Cuztom_Meta
 
 					echo '</table>';
 				}
-			
+
 			echo '</div>';
 		}
 	}
@@ -161,45 +163,45 @@ class Cuztom_Meta
 
 	/**
 	 * Check what kind of meta we're dealing with
-	 * 
+	 *
 	 * @return  string
 	 *
 	 * @author 	Gijs Jorissen
 	 * @since 	1.5
-	 * 
+	 *
 	 */
 	function get_meta_type()
 	{
 		switch( get_class( $this ) ) :
-			case 'Cuztom_Meta_Box' : 
-				return 'post'; 
+			case 'Cuztom_Meta_Box' :
+				return 'post';
 				break;
-			case 'Cuztom_User_Meta' : 
-				return 'user'; 
+			case 'Cuztom_User_Meta' :
+				return 'user';
 				break;
-			case 'Cuztom_Term_Meta' : 
-				return 'term'; 
+			case 'Cuztom_Term_Meta' :
+				return 'term';
 				break;
 			default :
-				return false; 
+				return false;
 				break;
 		endswitch;
 	}
 
 	/**
 	 * Check what kind of meta we're dealing with
-	 * 
+	 *
 	 * @return  string
 	 *
 	 * @author 	Gijs Jorissen
 	 * @since 	2.3
-	 * 
+	 *
 	 */
 	function is_meta_type( $meta_type )
 	{
 		return $this->get_meta_type() == $meta_type;
 	}
-	
+
 	/**
 	 * Checks if the given array are tabs
 	 *
@@ -214,7 +216,7 @@ class Cuztom_Meta
 	{
 		return isset( $data[0] ) && ( ! is_array( $data[0] ) ) && ( $data[0] == 'tabs' );
 	}
-	
+
 	/**
 	 * Checks if the given array is an accordion
 	 *
@@ -229,7 +231,7 @@ class Cuztom_Meta
 	{
 		return isset( $data[0] ) && ( ! is_array( $data[0] ) ) && ( $data[0] == 'accordion' );
 	}
-	
+
 	/**
 	 * Checks if the given array is a bundle
 	 *
