@@ -61,8 +61,7 @@
 #side-sortables .cuztom-table{}
 #side-sortables .cuztom-table th{ padding: 0 0 10px 0; width: 30%; }
 #side-sortables .cuztom-table td{ padding: 0 0 10px 0; width: 70%; }
-#side-sortables .cuztom-table .cuztom-description,
-#side-sortables .cuztom-table .cuztom-explanation{ display: none; }
+#side-sortables .cuztom-table .cuztom-description{ display: none; }
 #side-sortables .cuztom-table .cuztom-input,
 #side-sortables .cuztom-table .cuztom-checkbox-wrap,
 #side-sortables .cuztom-table .cuztom-checkboxes-wrap{ width: 100%; }
